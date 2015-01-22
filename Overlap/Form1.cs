@@ -29,6 +29,7 @@ namespace Overlap
 
         private void button1_Click(object sender, EventArgs e)
         {
+            checkedListBox1.CheckOnClick = true;
             string data="";
             
             int page = 1;
@@ -163,6 +164,25 @@ namespace Overlap
             foreach (string id in checkedListBox1.CheckedItems)
             {
                 System.Diagnostics.Process.Start("http://steamcommunity.com/profiles/" + id);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int checked1 = 0;
+            if(checkedListBox1.CheckedItems.Count>0){
+                checked1 = checkedListBox1.CheckedIndices[0];
+            }else{
+                checked1 = 0;
+            }
+            checkedListBox1.ClearSelected();
+            if(checked1+1<checkedListBox1.Items.Count){
+                checkedListBox1.SetItemChecked(checked1, false);
+                checkedListBox1.SetItemChecked(checked1 + 1,true);
+            }
+            foreach (string id in checkedListBox1.CheckedItems)
+            {
+                System.Diagnostics.Process.Start("steam://url/SteamIDPage/" + id);//"http://steamcommunity.com/profiles/" + id);
             }
         }
     }
