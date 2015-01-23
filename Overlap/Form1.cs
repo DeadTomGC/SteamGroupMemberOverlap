@@ -174,12 +174,100 @@ namespace Overlap
                 checked1 = checkedListBox1.CheckedIndices[0];
             }else{
                 checked1 = 0;
+                checkedListBox1.ClearSelected();
+                checkedListBox1.SetItemChecked(checked1, true);
+                foreach (string id in checkedListBox1.CheckedItems)
+                {
+                    System.Diagnostics.Process.Start("steam://url/SteamIDPage/" + id);//"http://steamcommunity.com/profiles/" + id);
+                }
+                return;
             }
             checkedListBox1.ClearSelected();
             if(checked1+1<checkedListBox1.Items.Count){
                 checkedListBox1.SetItemChecked(checked1, false);
                 checkedListBox1.SetItemChecked(checked1 + 1,true);
             }
+            foreach (string id in checkedListBox1.CheckedItems)
+            {
+                System.Diagnostics.Process.Start("steam://url/SteamIDPage/" + id);//"http://steamcommunity.com/profiles/" + id);
+            }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string data = "";
+            ids1 = new ArrayList();
+            int page = 1;
+            bool diff = true;
+            string urlpage = "http://steamcommunity.com/groups/" + textBox3.Text + "/memberslistxml/?xml=1&p=";
+
+
+            while (diff == true)
+            {
+                diff = false;
+                listBox1.Items.Add(urlpage + page);
+                listBox1.Refresh();
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlpage + page);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    Stream receiveStream = response.GetResponseStream();
+                    StreamReader readStream = null;
+
+                    if (response.CharacterSet == null)
+                    {
+                        readStream = new StreamReader(receiveStream);
+                    }
+                    else
+                    {
+                        readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                    }
+
+                    data = readStream.ReadToEnd();
+
+                    response.Close();
+                    readStream.Close();
+                }
+                page++;
+                int index = 0;
+                while (-1 != (index = data.IndexOf("<steamID64>")))
+                {
+                    string temp = data.Substring(index + 11, 17);
+                    if (ids1.Contains(temp))
+                    {
+
+                    }
+                    else
+                    {
+                        diff = true;
+                        ids1.Add(temp);
+                    }
+                    data = data.Substring(index + 28);
+                }
+            }
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            {
+                if (ids1.Contains(checkedListBox1.Items[i]))
+                {
+                    
+                }
+                else
+                {
+                    checkedListBox1.Items.RemoveAt(i);
+                    i--;
+                }
+            }
+            checkedListBox1.Refresh();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
             foreach (string id in checkedListBox1.CheckedItems)
             {
                 System.Diagnostics.Process.Start("steam://url/SteamIDPage/" + id);//"http://steamcommunity.com/profiles/" + id);
