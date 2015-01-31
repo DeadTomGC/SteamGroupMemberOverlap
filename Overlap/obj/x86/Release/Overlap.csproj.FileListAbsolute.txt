@@ -5,3 +5,4 @@ C:\Users\DeadTomGC\documents\visual studio 2010\Projects\Overlap\Overlap\obj\x86
 C:\Users\DeadTomGC\documents\visual studio 2010\Projects\Overlap\Overlap\obj\x86\Release\Overlap.csproj.GenerateResource.Cache
 C:\Users\DeadTomGC\documents\visual studio 2010\Projects\Overlap\Overlap\obj\x86\Release\Overlap.exe
 C:\Users\DeadTomGC\documents\visual studio 2010\Projects\Overlap\Overlap\obj\x86\Release\Overlap.pdb
+C:\Users\DeadTomGC\documents\visual studio 2010\Projects\Overlap\Overlap\obj\x86\Release\Overlap.csprojResolveAssemblyReference.cache
